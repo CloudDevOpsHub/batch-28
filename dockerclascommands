@@ -1,0 +1,61 @@
+sudo -i
+apt-get update
+apt install docker.io
+
+docker hub
+
+docker pull hello-world
+
+run
+image -> docker run  -> container (running application)
+
+if image is not availabe it will downlo from d hub 
+
+docker run hello-world
+
+docker run -it ubuntu   
+
+docker exec -it 6de9ea37785b bin/bash
+
+docker rm -f continer id 
+
+docker rmi  
+
+docker pull nginx  -- to see on brower with port 
+
+docker run nginx  
+ 
+docker run -p 80:80 nginx
+
+
+docker run --name docker-nginxbatch28 -p 80:80 nginx
+
+
+mkdir -p ~/docker-nginx/html
+
+cd ~/docker-nginx/html
+vi index.html
+
+
+docker run --name docker-nginx -p -d 80:80  nginx
+
+volume  - v
+
+docker run --name docker-nginx -p 80:80 -d -v ~/docker-nginx/html:/usr/share/nginx/html nginx
+
+
+
+html file 
+
+<html>
+  <head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <title>Docker nginx Tutorial</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Hello Learning team batch27 with kamlesh and parth</h1>
+      <p>This nginx page is brought to you by Docker in front of abhishek ayesha ravi naveen sabita </p>
+    </div>
+  </body>
+</html>
