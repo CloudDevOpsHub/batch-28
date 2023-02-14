@@ -1,0 +1,209 @@
+.sh
+
+#! /bin/sh
+ls
+pwd
+date
+mkdir abc
+ls
+
+./
+
+chmod + file.sh
+
+./
+
+
+-----------------
+
+
+
+#!/bin/bash  
+echo "This is a shell script for batch 28"  
+ls
+echo "I am done running ls command"  
+SOMEVAR='text stuff for veriable'  
+echo "$SOMEVAR"
+
+
+---------------
+
+#!/bin/bash 
+echo "Hello is any one availabe here"
+echo "My name is $(whoami)"
+echo "Nice to meet you"
+
+---------------------
+
+monitoring script
+
+
+#!/bin/bash  
+echo "This is a 3rd shell script"
+echo "the hostname 0f this machine is "
+hostname 
+hostname -i
+ps
+echo "memory used in the machine "
+free
+echo "disk used in the machine "
+df -h
+echo "the above information from the machine"  
+
+
+> 
+
+>> append 
+
+------------------ BODMAS
+
+#!/bin/bash
+# Add two numeric value
+((sum=10-5))
+#Print the result
+echo $sum
+
+-------------
+
+
+#!/bin/bash
+echo "Enter Your Name"
+read name
+echo "Welcome $name to Linux Learning session for batch28"
+
+
+BODMAS
+
+----------
+
+Q :-     check PS * 3  duration is 3 sec 
+
+#!/bin/bash
+# Write a shell script to display the process running on the system for every
+# 30 seconds, but only for 3 times.
+# -------------------------------------------------------------------------
+# -------------------------------------------------------------------------
+# 
+# for loop 3 times
+for r in 1 2 3 4 5     ... 100
+do
+	#see every process on the system
+	echo "**************************** x^x^x ****************************"
+	free
+	echo "**************************** x^x^x ****************************"
+	#sleep for 30 seconds
+	sleep 3
+        # clean
+done
+
+
+operator
+&&      and
+||      or 
+
+
+
+for i in {1..100};
+
+
+java , c 
+
+i 0
+i 1
+12
+i 3 
+
+1 100 
+for ((i = 0 ; i < 100 ; i++)); do
+
+
+
+i++   add 1 
+
+
+
+
+
+
+
+
+
+#!/bin/bash
+# Sample script written for Part 4 of the RHCE series
+# This script will return the following set of system information:
+# -Hostname information:
+echo -e "\e[31;43m***** HOSTNAME INFORMATION *****\e[0m"
+hostnamectl
+echo ""
+# -File system disk space usage:
+echo -e "\e[31;43m***** FILE SYSTEM DISK SPACE USAGE *****\e[0m"
+df -h
+echo ""
+# -Free and used memory in the system:
+echo -e "\e[31;43m ***** FREE AND USED MEMORY *****\e[0m"
+free
+echo ""
+# -System uptime and load:
+echo -e "\e[31;43m***** SYSTEM UPTIME AND LOAD *****\e[0m"
+uptime
+echo ""
+# -Logged-in users:
+echo -e "\e[31;43m***** CURRENTLY LOGGED-IN USERS *****\e[0m"
+who
+echo ""
+# -Top 5 processes as far as memory usage is concerned
+echo -e "\e[31;43m***** TOP 5 MEMORY-CONSUMING PROCESSES *****\e[0m"
+ps -eo %mem,%cpu,comm --sort=-%mem | head -n 6
+echo ""
+echo -e "\e[1;32mDone.\e[0m"
+
+
+-------------------
+777 permision 
+
+1.sh   777 
+7.sh   777 
+
+
+1) update the local file database, 
+
+updatedb
+
+2) find (and alternatively delete) files with 777 permissions,
+3) alert when filesystem usage surpasses a defined limit.
+
+#!/bin/bash
+
+# Sample script to automate tasks:
+# -Update local file database:
+echo -e "\e[4;32mUPDATING LOCAL FILE DATABASE\e[0m"
+updatedb
+if [ $? == 0 ]; then
+        echo "The local file database was updated correctly."
+else
+        echo "The local file database was not updated correctly."
+fi
+echo ""
+
+# -Find and / or delete files with 777 permissions.
+echo -e "\e[4;32mLOOKING FOR FILES WITH 777 PERMISSIONS\e[0m"
+# Enable either option (comment out the other line), but not both.
+# Option 1: Delete files without prompting for confirmation. Assumes GNU version of find.
+#find -type f -perm 0777 -delete
+# Option 2: Ask for confirmation before deleting files. More portable across systems.
+find -type f -perm 0777 -exec rm -i {} +;
+echo ""
+# -Alert when file system usage surpasses a defined limit 
+echo -e "\e[4;32mCHECKING FILE SYSTEM USAGE\e[0m"
+THRESHOLD=30
+while read line; do
+        # This variable stores the file system path as a string
+        FILESYSTEM=$(echo $line | awk '{print $1}')
+        # This variable stores the use percentage (XX%)
+        PERCENTAGE=$(echo $line | awk '{print $5}')
+        # Use percentage without the % sign.
+        USAGE=${PERCENTAGE%?}
+        if [ $USAGE -gt $THRESHOLD ]; then
+                echo "The remaining available space in $FILESYSTEM is critically low. Used: $PERCENTAGE"
+        fi
+done < <(df -h --total | grep -vi filesystem)
